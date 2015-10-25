@@ -43,3 +43,8 @@ This architecture has the following advantages:
 * Separating the engine and manuscript storage allows the user to either start
   writing first or designing first, and doing either will make the other
   experience better.
+
+# Disadvantages
+
+* This will require a lot of chatter between services; which will add complexity
+  and bandwidth cost.
