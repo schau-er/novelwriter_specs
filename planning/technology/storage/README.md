@@ -66,8 +66,47 @@ This section details the requirements and options specifically for the manuscrip
 
 ##### Potential Partners
 
-1. S3 - storage for git
-2. ElasticSearch - duplicate data to make searchable
+Jack is thinking that really we probably want all of these:
+
+1. git (for versioning)
+2. S3 (for durability)
+3. ElasticSearch (for real-time querying)
+
+If we treat S3 files as immutable, they serve as our disaster-recovery solution
+and easy rollback/restore source. Git repos are considered current 'source of
+truth' versions, unless there's a catastrophe and we manually fall back to an
+s3 snapshot. Elasticsearch is considered ephemeral, and gets completely blown
+away on every update (or we store things with git SHAs, which allows us to
+search by version, which could be cool). The git SHAs would be useful all over
+the place for keeping track of state. If everything's tagged with the sha, we
+don't have to worry so much about race conditions, etc. Could be massively
+overkill.
+
+One option would be to run our own git server (fairly trivial, though we'd
+have to support dynamic user mapping), which our
+manuscript storage service talks to, and on the git server we back up (cp) a
+tarball of the repos either after every commit, or every hour, or whatever we
+want. That would allow other services to fetch the latest version of the repo
+from s3 and reconstitute it for local work, or what have you. It would also
+mean we could theoretically provide git access to our users.
+
+Here's an idea. We could set up a git server with git hooks to send the updated
+content to the manuscript parser, which would then send the parsed items to the
+social engine. Then we'd just have to figure out how to get our frontend
+connected to git. Maybe that's just done by the api server calling the git
+client.
+
+In terms of scale, we could also explore AWS's new NFS product, which *should*
+allow us to scale our compute nodes (for running the git server), because each
+one of them could access any of the repos.
+
+We could also do everything asynchronously, and just put the latest saved state
+into a queue, which qprocs popped off and handled forking the content into git,
+s3, the social enging, etc. Whatever we want, really. Setting that up might be
+a lot of work.
+
+There's a Ruby [gem](https://github.com/schacon/ruby-git) which supports
+interfacing with git. Not sure about quality.
 
 #### ElasticSearch
 
