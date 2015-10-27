@@ -11,6 +11,11 @@ This directory will include all manuscript features information.
 ## Productivity Features
 
 1. Dictation (i.e. You speak and your words are added to the page)
+2. Serenity Mode (AKA Distraction free mode)
+3. Curate Mode (i.e. You see notifications on suggested links, or whatever we suggest you do to your work.)
+4. Name Generator (with real names)
+5. Fantasy Name Generator (with made up names)
+6. Title Generator (support for all genres)
 
 ## Review Features
 
