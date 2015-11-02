@@ -20,6 +20,10 @@ This folder contains details on features related to character tools.
 
 This folder contains details on features related to collaboration tools.
 
+### extras/
+
+This folder contains details on features related to extras, i.e. things that don't fit anywhere else.
+
 ### manuscript/
 
 This folder contains details on features related to writing the manuscript.
