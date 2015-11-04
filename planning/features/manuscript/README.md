@@ -17,6 +17,7 @@ This directory will include all manuscript features information.
 5. Fantasy Name Generator (with made up names)
 6. Title Generator (support for all genres)
 7. No edits mode - User is not allowed to delete, erase, change, etc. Forced to just go with the flow and edit later
+8. "Clippy" instructor that notices when certain actions are taken (such as bold formatting) and offers tips
 
 ## Review Features
 
